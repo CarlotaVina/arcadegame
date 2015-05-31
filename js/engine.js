@@ -19,6 +19,8 @@ var Engine = (function(global) {
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
      */
+	
+	console.log("principio engine");
     var doc = global.document,
         win = global.window,
         canvas = doc.createElement('canvas'),
@@ -32,6 +34,8 @@ var Engine = (function(global) {
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
      */
+    
+    console.log("engine paso main");
     function main() {
         /* Get our time delta information which is required if your game
          * requires smooth animation. Because everyone's computer processes
@@ -45,7 +49,15 @@ var Engine = (function(global) {
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
          */
+        console.log("engine en main");
+        allEnemies.forEach(function(enemy) {
+         	console.log("engine init antes update comprobando coordenadas ");
+         	console.log(enemy.x);
+         	console.log(enemy.y);
+             
+         });
         update(dt);
+        console.log("engine antes de render");
         render();
 
         /* Set our lastTime variable which is used to determine the time delta
@@ -64,8 +76,10 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
+    	console.log("engine principio init");
         reset();
         lastTime = Date.now();
+        console.log("engine antes main");
         main();
     }
 
@@ -94,7 +108,7 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
+       // player.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -136,7 +150,7 @@ var Engine = (function(global) {
             }
         }
 
-
+        console.log("llamada renderEntities");
         renderEntities();
     }
 
@@ -148,11 +162,20 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
+    	
+    	console.log("engine renderEntities");
         allEnemies.forEach(function(enemy) {
+        	console.log("engine llamada a render ");
+        	console.log(enemy.x);
+        	console.log(enemy.y);
             enemy.render();
         });
+        
+        console.log("entities renderEntities antes de render player");
 
-        player.render();
+        //player.render();
+        
+        console.log("entities renderEntities despues de render player");
     }
 
     /* This function does nothing but it could have been a good place to
@@ -174,7 +197,18 @@ var Engine = (function(global) {
         'images/enemy-bug.png',
         'images/char-boy.png'
     ]);
-    Resources.onReady(init);
+    
+    allEnemies.forEach(function(enemy) {
+     	console.log("engine antes resources comprobando coordenadas ");
+     	console.log(enemy.x);
+     	console.log(enemy.y);
+         
+     });
+    
+    console.log("engine resources");
+    //Resources.onReady(init);
+    console.log("engine llamada a init");
+    init();
 
     /* Assign the canvas' context object to the global variable (the window
      * object when run in a browser) so that developer's can use it more easily
